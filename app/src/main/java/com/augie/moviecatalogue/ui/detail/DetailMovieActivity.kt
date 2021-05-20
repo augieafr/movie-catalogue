@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.augie.moviecatalogue.R
 import com.augie.moviecatalogue.data.MovieEntity
 import com.augie.moviecatalogue.databinding.ActivityDetailMovieBinding
+import com.augie.moviecatalogue.viewmodel.ViewModelFactory
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
@@ -25,27 +26,71 @@ class DetailMovieActivity : AppCompatActivity(), View.OnClickListener {
 
         supportActionBar?.title = "Detail"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        loadingState(true)
 
         val id = intent.getIntExtra(EXTRA_ID, 0)
         val type = intent.getStringExtra(EXTRA_TYPE)
 
+        val factory = ViewModelFactory.getInstance()
         val viewModel = ViewModelProvider(
             this,
-            ViewModelProvider.NewInstanceFactory()
+            factory
         )[DetailMovieViewModel::class.java]
-        viewModel.setSelectedMovie(id)
 
         if (type != null) {
-            movie = viewModel.getMovie(type)
-            populateView(movie)
+            viewModel.getMovie(type, id).observe(this, { detail ->
+                populateView(detail)
+                movie = detail
+                loadingState(false)
+            })
         }
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home){
+        if (item.itemId == android.R.id.home) {
             finish()
         }
         return true
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.civ_favorite -> {
+                with(binding.civFavorite) {
+                    setImageResource(R.drawable.ic_baseline_favorite_24)
+                    tag = R.drawable.ic_baseline_favorite_24
+                }
+                Toast.makeText(
+                    this,
+                    "Will be fully implemented in submission 3",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            R.id.civ_share -> {
+                val mimeType = "text/plain"
+                ShareCompat.IntentBuilder
+                    .from(this)
+                    .setType(mimeType)
+                    .setChooserTitle("Share this film now")
+                    .setText(resources.getString(R.string.share_text, movie.title, movie.overview))
+                    .startChooser()
+            }
+        }
+    }
+
+    private fun loadingState(loading: Boolean) {
+        if (loading) {
+            with(binding) {
+                progressBar.visibility = View.VISIBLE
+                constraintLayout.visibility = View.GONE
+            }
+        } else {
+            with(binding) {
+                progressBar.visibility = View.GONE
+                constraintLayout.visibility = View.VISIBLE
+            }
+        }
     }
 
     private fun populateView(movie: MovieEntity) {
@@ -66,38 +111,20 @@ class DetailMovieActivity : AppCompatActivity(), View.OnClickListener {
         }
 
         Glide.with(this)
-            .load(movie.poster)
+            .load("https://image.tmdb.org/t/p/original${movie.poster}")
             .apply(
                 RequestOptions.placeholderOf(R.drawable.ic_loading)
                     .error(R.drawable.ic_error)
             )
             .into(binding.imgDetailPoster)
-    }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.civ_favorite -> {
-                with(binding.civFavorite) {
-                    setImageResource(R.drawable.ic_baseline_favorite_24)
-                    tag = R.drawable.ic_baseline_favorite_24
-                }
-                Toast.makeText(
-                    this,
-                    "Will be fully implemented in submission 2",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            R.id.civ_share -> {
-                val mimeType = "text/plain"
-                ShareCompat.IntentBuilder
-                    .from(this)
-                    .setType(mimeType)
-                    .setChooserTitle("Bagikan aplikasi ini sekarang")
-                    .setText(resources.getString(R.string.share_text, movie.title, movie.overview))
-                    .startChooser()
-            }
-        }
+        Glide.with(this)
+            .load("https://image.tmdb.org/t/p/original${movie.backdrop}")
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading)
+                    .error(R.drawable.ic_error)
+            )
+            .into(binding.imgDetailBackdrop)
     }
 
     companion object {

@@ -16,7 +16,7 @@ class MovieAdapter(private val type: String) :
 
     private val movieList = ArrayList<MovieEntity>()
 
-    fun setMovie(data: ArrayList<MovieEntity>) {
+    fun setMovie(data: List<MovieEntity>) {
         movieList.clear()
         movieList.addAll(data)
         notifyDataSetChanged()
@@ -27,14 +27,22 @@ class MovieAdapter(private val type: String) :
         fun bind(movie: MovieEntity) {
             with(binding) {
                 tvMovieTitle.text = movie.title
-                tvMovieGenre.text = movie.genre
                 Glide.with(itemView.context)
-                    .load(movie.poster)
+                    .load("https://image.tmdb.org/t/p/original${movie.poster}")
                     .apply(
                         RequestOptions.placeholderOf(R.drawable.ic_loading)
                             .error(R.drawable.ic_error)
                     )
                     .into(imgMoviePoster)
+
+                Glide.with(itemView.context)
+                    .load("https://image.tmdb.org/t/p/original${movie.backdrop}")
+                    .apply(
+                        RequestOptions.placeholderOf(R.drawable.ic_loading)
+                            .error(R.drawable.ic_error)
+                    )
+                    .into(imgMovieBackdrop)
+
 
                 itemView.setOnClickListener {
                     val intent = Intent(itemView.context, DetailMovieActivity::class.java)

@@ -1,9 +1,170 @@
 package com.augie.moviecatalogue.utils
 
-import com.augie.moviecatalogue.R
 import com.augie.moviecatalogue.data.MovieEntity
+import com.augie.moviecatalogue.data.source.remote.*
 
 object DataDummy {
+    // all the dummy is only for testing. The information in dummy data may not represent
+    // the actual data
+    fun generateDetailTvShow(): DetailTvShowResponse {
+        return DetailTvShowResponse(
+            "en",
+            1,
+            listOf(NetworksItem(" ", "", 1, "")),
+            "",
+            "",
+            listOf(GenresItem("", 1)),
+            1.0,
+            listOf(ProductionCountriesItem("", "")),
+            1,
+            1,
+            1,
+            "",
+            "",
+            listOf(
+                SeasonsItem(
+                    "", "",
+                    1, "", 1, 1, ""
+                )
+            ),
+            listOf("", ""),
+            listOf(CreatedByItem(1, "", "", "", 1)),
+            LastEpisodeToAir(
+                "", "", "",
+                1, 1.0, "", 1,
+                1, "", 1
+            ),
+            "",
+            listOf("", ""),
+            listOf(SpokenLanguagesItem("", "", "")),
+            listOf(ProductionCompaniesItem("", "", 1, "")),
+            "",
+            1.0,
+            "",
+            "",
+            listOf(1, 2, 3),
+            "",
+            true,
+            "",
+            "",
+            ""
+        )
+    }
+
+    fun generateDetailMovie(): DetailMovieResponse {
+        return DetailMovieResponse(
+            "en",
+            "1",
+            false,
+            "Detail Movie",
+            "backdrop.jpg",
+            1,
+            listOf(GenresItem("action", 1)),
+            1.0,
+            listOf(ProductionCountriesItem("iso", "dunno")),
+            1,
+            1,
+            1,
+            "this is overview",
+            "Detail Movie",
+            1,
+            "poster.jpg",
+            listOf(SpokenLanguagesItem("en", "isoEn?", "english")),
+            listOf(ProductionCompaniesItem("logo.jpg", "dummy corp", 1, "usa")),
+            "2021-01-01",
+            1.0,
+            "",
+            "this is dummy",
+            false,
+            "dummy.com",
+            "airing"
+        )
+    }
+
+    fun generateDummyTvShowResponse(): TvResponse {
+        return TvResponse(
+            1,
+            1,
+            listOf(
+                TvItem(
+                    "2021-01-01",
+                    "this is overview",
+                    "en",
+                    listOf(1, 2, 3),
+                    "dummytvshowposter1.jpg",
+                    listOf("USA"),
+                    "dummytvshowbackdrop1.jpg",
+                    "Dummy TvShow 1",
+                    8.0,
+                    8.0,
+                    "Dummy TvShow 1",
+                    1,
+                    100
+                ),
+
+                TvItem(
+                    "2021-02-02",
+                    "this is overview",
+                    "en",
+                    listOf(1, 2, 3),
+                    "dummytvshowposter2.jpg",
+                    listOf("USA"),
+                    "dummytvshowbackdrop2.jpg",
+                    "Dummy TvShow 2",
+                    8.0,
+                    8.0,
+                    "Dummy TvShow 2",
+                    2,
+                    200
+                )
+            ),
+            1
+        )
+
+    }
+
+    fun generateDummyMovieResponse(): MovieResponse {
+        return MovieResponse(
+            1,
+            1,
+            listOf(
+                MovieItem(
+                    "This is overview",
+                    "en",
+                    "Dummy Movie 1",
+                    false,
+                    "Dummy Movie 1",
+                    listOf(1, 2, 3),
+                    "dummymovieposter1.jpg",
+                    "dummymoviebackdrop1.jpg",
+                    "2021-01-01",
+                    8.0,
+                    8.0,
+                    1,
+                    false,
+                    100
+                ),
+                MovieItem(
+                    "This is overview",
+                    "en",
+                    "Dummy Movie 2",
+                    false,
+                    "Dummy Movie 2",
+                    listOf(1, 2, 3),
+                    "dummymovieposter2.jpg",
+                    "dummymoviebackdrop2.jpg",
+                    "2021-02-02",
+                    8.0,
+                    8.0,
+                    2,
+                    false,
+                    200
+                )
+            ),
+            1
+        )
+    }
+
     fun generateDummyTvShow(): ArrayList<MovieEntity> {
         val tvShows = ArrayList<MovieEntity>()
 
@@ -15,7 +176,8 @@ object DataDummy {
                 "2012",
                 "Crime, Drama, Mystery, Action & Adventure",
                 "42m",
-                R.drawable.tvposter_arrow
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/gKG5QGz5Ngf8fgWpBsWtlg5L2SF.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/fFT7T9y9NVRdcdVh81roVrJBcDh.jpg"
             )
         )
 
@@ -27,7 +189,8 @@ object DataDummy {
                 "2019",
                 "Sci-Fi & Fantasy, Comedy, Drama",
                 "49m",
-                R.drawable.tvposter_doom_patrol
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/nclcURTdlqVbDr6HPmrHC5X4qUu.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/b7unxzWSFfj7i6UVmuPixxxXFOF.jpg"
             )
         )
 
@@ -39,7 +202,8 @@ object DataDummy {
                 "1986",
                 "Animation, Action & Adventure, Sci-Fi & Fantasy",
                 "25m",
-                R.drawable.tvposter_dragon_ball
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/tZ0jXOeYBWPZ0OWzUhTlYvMF7YR.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jipCnOL1aH81wL6CdlrbvHpkueg.jpg"
             )
         )
 
@@ -51,7 +215,8 @@ object DataDummy {
                 "2009",
                 "Action & Adventure, Animation, Comedy, Sci-Fi & Fantasy, Mystery",
                 "25m",
-                R.drawable.tvposter_fairytail
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/jsYTctFnK8ewomnUgcwhmsTkOum.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/fANxNeH9JCXPrzNEfriGu1Y95dF.jpg"
             )
         )
 
@@ -63,7 +228,8 @@ object DataDummy {
                 "1999",
                 "Animation, Comedy",
                 "22m",
-                R.drawable.tvposter_family_guy
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/eWWCRjBfLyePh2tfZdvNcIvKSJe.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jbTqU6BJMufoMnPSlO4ThrcXs3Y.jpg"
             )
         )
 
@@ -75,7 +241,8 @@ object DataDummy {
                 "2014",
                 "Drama, Sci-Fi & Fantasy",
                 "44m",
-                R.drawable.tvposter_flash
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/wHa6KOJAoNTFLFtp7wguUJKSnju.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/jeruqNWhqRqOR1QyqdQdHunrvU5.jpg"
             )
         )
 
@@ -87,7 +254,8 @@ object DataDummy {
                 "2011",
                 "Sci-Fi & Fantasy, Drama, Action & Adventure",
                 "1h",
-                R.drawable.tvposter_got
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/u3bZgnGQ9T01sWNhyveQz0wH0Hl.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/suopoADq0k8YZr4dQXcU6pToj6s.jpg"
             )
         )
 
@@ -99,7 +267,8 @@ object DataDummy {
                 "2014",
                 "Drama, Crime, Sci-Fi & Fantasy",
                 "43m",
-                R.drawable.tvposter_gotham
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/5tSHzkJ1HBnyGdcpr6wSyw7jYnJ.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/97GsCX3k6BbprnBIIMlVKirmhLz.jpg"
             )
         )
 
@@ -111,7 +280,8 @@ object DataDummy {
                 "2005",
                 "Drama",
                 "43m",
-                R.drawable.tvposter_grey_anatomy
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/clnyhPqj1SNgpAdeSS6a6fwE6Bo.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/edmk8xjGBsYVIf4QtLY9WMaMcXZ.jpg"
             )
         )
 
@@ -123,7 +293,8 @@ object DataDummy {
                 "2019",
                 "Action & Adventure, Drama",
                 "50m",
-                R.drawable.tvposter_hanna
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/5nSSkcM3TgpllZ7yTyBOQEgAX36.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/6Fzyuwn8KeMCSqRILfdrDmCvmod.jpg"
             )
         )
 
@@ -141,7 +312,8 @@ object DataDummy {
                 "2018",
                 "Drama, Romance, Music",
                 "2h 16m",
-                R.drawable.poster_a_start_is_born
+                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/wrFpXMNBRj2PBiN4Z5kix51XaIZ.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/mnDvPokXpvsdPcWSjNRPhiiLOKu.jpg"
             )
         )
 
@@ -153,7 +325,8 @@ object DataDummy {
                 "2019",
                 "Action, Science Fiction, Adventure",
                 "2h 2m",
-                R.drawable.poster_alita
+                "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/xRWht48C2V8XNfzvPehyClOvDni.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/8RKBHHRqOMOLh5qW3sS6TSFTd8h.jpg"
             )
         )
 
@@ -165,7 +338,8 @@ object DataDummy {
                 "2018",
                 "Action, Adventure, Fantasy",
                 "2h 23m",
-                R.drawable.poster_aquaman
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/xLPffWMhMj1l50ND3KchMjYoKmE.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/9QusGjxcYvfPD1THg6oW3RLeNn7.jpg"
             )
         )
 
@@ -177,7 +351,8 @@ object DataDummy {
                 "2018",
                 "Music, Drama, History",
                 "2h 15m",
-                R.drawable.poster_bohemian
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/lHu1wtNaczFPGFDTrjCSzeLPTKN.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/93xA62uLd5CwMOAs37eQ7vPc1iV.jpg"
             )
         )
 
@@ -189,7 +364,8 @@ object DataDummy {
                 "2019",
                 "Action, Crime, Thriller",
                 "1h 59m",
-                R.drawable.poster_cold_persuit
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/hXgmWPd1SuujRZ4QnKLzrj79PAw.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/aiM3XxYE2JvW1vJ4AC6cI1RjAoT.jpg"
             )
         )
 
@@ -201,7 +377,8 @@ object DataDummy {
                 "2018",
                 "Drama",
                 "2h 10m",
-                R.drawable.poster_creed
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/qPQFWrLoQYyGxmeBgmpX901Q0mF.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/9il7qNbeYnPMYlutsVYDsj4hRyb.jpg"
             )
         )
 
@@ -213,7 +390,8 @@ object DataDummy {
                 "2018",
                 "Adventure, Fantasy, Drama",
                 "2h 14m",
-                R.drawable.poster_crimes
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/fMMrl8fD9gRCFJvsx0SuFwkEOop.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/qrtRKRzoNkf5vemO9tJ2Y4DrHxQ.jpg"
             )
         )
 
@@ -225,7 +403,8 @@ object DataDummy {
                 "2019",
                 "Thriller, Drama, Science Fiction",
                 "2h 9m",
-                R.drawable.poster_glass
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/svIDTNUoajS8dLEo7EosxvyAsgJ.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/ngBFDOsx13sFXiMweDoL54XYknR.jpg"
             )
         )
 
@@ -237,7 +416,8 @@ object DataDummy {
                 "2019",
                 "Animation, Family, Adventure",
                 "1h 44m",
-                R.drawable.poster_how_to_train
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/bCYRgsT0Kndh23a6kHazBdXWCn1.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/lFwykSz3Ykj1Q3JXJURnGUTNf1o.jpg"
             )
         )
 
@@ -249,7 +429,8 @@ object DataDummy {
                 "2018",
                 "Adventure, Action, Science Fiction",
                 "2h 29m",
-                R.drawable.poster_infinity_war
+                "https://www.themoviedb.org/t/p/w220_and_h330_face/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+                "https://www.themoviedb.org/t/p/w533_and_h300_bestv2/lmZFxXgJE3vgrciwuDib0N8CfQo.jpg"
             )
         )
 

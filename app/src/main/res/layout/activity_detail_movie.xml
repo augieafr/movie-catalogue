@@ -1,94 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".ui.detail.DetailMovieActivity">
+    android:gravity="center">
 
-    <ImageView
-        android:id="@+id/img_detail_poster"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
-        android:contentDescription="@string/movie_poster"
-        android:elevation="4dp"
-        android:scaleType="fitXY"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/poster_how_to_train" />
-
-    <TextView
-        android:id="@+id/tv_detail_title"
-        style="@style/TextAppearance.MdcTypographyStyles.Headline6"
-        android:layout_width="0dp"
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.037"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="How to train your dragon: The Hidden World" />
-
-    <TextView
-        android:id="@+id/tv_detail_genre"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@id/tv_detail_duration"
-        app:layout_constraintStart_toEndOf="@id/guideline"
-        app:layout_constraintTop_toBottomOf="@id/tv_detail_title"
-        tools:text="Action, comedy" />
-
-    <TextView
-        android:id="@+id/tv_detail_duration"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_detail_genre"
-        tools:text="1h 20m" />
-
-    <TextView
-        android:id="@+id/tv_overview"
-        style="@style/TextAppearance.MdcTypographyStyles.Headline6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/overview"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/img_detail_poster" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_detail_overview"
-        style="@style/TextAppearance.MdcTypographyStyles.Subtitle2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_overview"
-        tools:text="@string/lorem_ipsum" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.detail.DetailMovieActivity">
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="158dp" />
+        <ImageView
+            android:id="@+id/img_detail_backdrop"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:contentDescription="@string/movie_backdrop"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@tools:sample/backgrounds/scenic" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_favorite"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_baseline_favorite_border_24"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintBottom_toBottomOf="@id/img_detail_poster"
-        app:layout_constraintEnd_toStartOf="@id/civ_share" />
+        <ImageView
+            android:id="@+id/img_detail_poster"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="16dp"
+            android:background="@color/white"
+            android:contentDescription="@string/movie_poster"
+            android:elevation="8dp"
+            android:scaleType="fitXY"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/horizontal_guideline"
+            tools:src="@tools:sample/avatars" />
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/civ_share"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_baseline_share_24"
-        app:layout_constraintBottom_toBottomOf="@id/civ_favorite"
-        app:layout_constraintEnd_toEndOf="parent"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_detail_title"
+            style="@style/TextAppearance.MdcTypographyStyles.Headline6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:elevation="8dp"
+            android:textColor="@android:color/darker_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/vertical_guideline"
+            app:layout_constraintTop_toTopOf="@id/horizontal_guideline"
+            tools:text="How to train your dragon: The Hidden World" />
+
+        <TextView
+            android:id="@+id/tv_detail_genre"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="8dp"
+            android:maxLines="3"
+            app:layout_constraintEnd_toStartOf="@id/tv_detail_duration"
+            app:layout_constraintStart_toEndOf="@id/vertical_guideline"
+            app:layout_constraintTop_toBottomOf="@id/img_detail_backdrop"
+            tools:text="Action, comedy" />
+
+        <TextView
+            android:id="@+id/tv_detail_duration"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:elevation="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_detail_genre"
+            tools:text="1h 20m" />
+
+        <TextView
+            android:id="@+id/tv_overview"
+            style="@style/TextAppearance.MdcTypographyStyles.Headline6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/overview"
+            app:layout_constraintStart_toStartOf="@id/img_detail_poster"
+            app:layout_constraintTop_toBottomOf="@id/img_detail_poster" />
+
+        <TextView
+            android:id="@+id/tv_detail_overview"
+            style="@style/TextAppearance.MdcTypographyStyles.Subtitle2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_overview"
+            app:layout_constraintTop_toBottomOf="@id/tv_overview"
+            tools:text="@string/lorem_ipsum" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="132dp" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/horizontal_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="187dp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_favorite"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="32dp"
+            android:src="@drawable/ic_baseline_favorite_border_24"
+            app:layout_constraintBottom_toBottomOf="@id/img_detail_poster"
+            app:layout_constraintEnd_toStartOf="@id/civ_share" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/civ_share"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_baseline_share_24"
+            app:layout_constraintBottom_toBottomOf="@id/civ_favorite"
+            app:layout_constraintEnd_toEndOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

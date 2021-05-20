@@ -1,32 +1,45 @@
 package com.augie.moviecatalogue.ui.home
 
 import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.augie.moviecatalogue.R
-import com.augie.moviecatalogue.utils.DataDummy
+import com.augie.moviecatalogue.utils.EspressoIdlingResources
 import org.hamcrest.CoreMatchers.equalTo
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 class HomeActivityTest {
 
-    private val dummyMovie = DataDummy.generateDummyMovie()
-    private val dummyTvShow = DataDummy.generateDummyTvShow()
-
     @get:Rule
     val activityRule = ActivityScenarioRule(HomeActivity::class.java)
+
+    @Before
+    fun setup() {
+        ActivityScenario.launch(HomeActivity::class.java)
+        IdlingRegistry.getInstance().register(EspressoIdlingResources.idlingResource)
+    }
+
+    @After
+    fun tearDown() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResources.idlingResource)
+    }
 
     @Test
     fun loadMovie() {
         onView(withId(R.id.rv_movie)).check(matches(isDisplayed()))
+        //
         onView(withId(R.id.rv_movie)).perform(
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                dummyMovie.size
+                10
             )
         )
     }
@@ -37,7 +50,7 @@ class HomeActivityTest {
         onView(withId(R.id.rv_tv_show)).check(matches(isDisplayed()))
         onView(withId(R.id.rv_tv_show)).perform(
             RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(
-                dummyTvShow.size
+                10
             )
         )
     }
@@ -50,31 +63,16 @@ class HomeActivityTest {
             )
         )
 
-        // check if the view matches with the data
+        // check if the views are displayed
         onView(withId(R.id.img_detail_poster)).check(matches(isDisplayed()))
-        onView(withId(R.id.img_detail_poster)).check(
-            matches(
-                withTagValue(
-                    equalTo(
-                        dummyMovie[0].poster
-                    )
-                )
-            )
-        )
 
         onView(withId(R.id.tv_detail_duration)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_detail_duration)).check(matches(withText(dummyMovie[0].duration)))
 
         onView(withId(R.id.tv_detail_genre)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_detail_genre)).check(matches(withText(dummyMovie[0].genre)))
 
         onView(withId(R.id.tv_detail_overview)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_detail_overview)).check(matches(withText(dummyMovie[0].overview)))
 
         onView(withId(R.id.tv_detail_title)).check(matches(isDisplayed()))
-        // don't know how to get string resource in instrumental test, but this hard code way is work
-        onView(withId(R.id.tv_detail_title)).check(matches(withText("${dummyMovie[0].title} (${dummyMovie[0].releaseDate})")))
-
         // share icon
         onView(withId(R.id.civ_share)).check(matches(isDisplayed()))
 
@@ -97,28 +95,14 @@ class HomeActivityTest {
 
         // check if the view matches with the data
         onView(withId(R.id.img_detail_poster)).check(matches(isDisplayed()))
-        onView(withId(R.id.img_detail_poster)).check(
-            matches(
-                withTagValue(
-                    equalTo(
-                        dummyTvShow[0].poster
-                    )
-                )
-            )
-        )
 
         onView(withId(R.id.tv_detail_duration)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_detail_duration)).check(matches(withText(dummyTvShow[0].duration)))
 
         onView(withId(R.id.tv_detail_genre)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_detail_genre)).check(matches(withText(dummyTvShow[0].genre)))
 
         onView(withId(R.id.tv_detail_overview)).check(matches(isDisplayed()))
-        onView(withId(R.id.tv_detail_overview)).check(matches(withText(dummyTvShow[0].overview)))
 
         onView(withId(R.id.tv_detail_title)).check(matches(isDisplayed()))
-        // don't know how to get string resource in instrumental test, but this hard code way is work
-        onView(withId(R.id.tv_detail_title)).check(matches(withText("${dummyTvShow[0].title} (${dummyTvShow[0].releaseDate})")))
 
         // share icon
         onView(withId(R.id.civ_share)).check(matches(isDisplayed()))

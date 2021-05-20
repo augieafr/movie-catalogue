@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.augie.moviecatalogue.databinding.FragmentTvShowBinding
 import com.augie.moviecatalogue.ui.adapter.MovieAdapter
 import com.augie.moviecatalogue.ui.detail.DetailMovieActivity
+import com.augie.moviecatalogue.viewmodel.ViewModelFactory
 
 class TvShowFragment : Fragment() {
     private lateinit var binding: FragmentTvShowBinding
@@ -25,17 +26,36 @@ class TvShowFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (activity != null) {
+            val factory = ViewModelFactory.getInstance()
             val viewModel = ViewModelProvider(
                 this,
-                ViewModelProvider.NewInstanceFactory()
+                factory
             )[TvShowViewModel::class.java]
-            val listMovie = viewModel.getTvShow()
             val adapter = MovieAdapter(DetailMovieActivity.TV_SHOW)
-            adapter.setMovie(listMovie)
-            with(binding.rvTvShow) {
-                layoutManager = LinearLayoutManager(context)
-                this.adapter = adapter
-                setHasFixedSize(true)
+
+            loadingState(true)
+
+            viewModel.getTvShows().observe(viewLifecycleOwner, { listTvShows ->
+                adapter.setMovie(listTvShows)
+                with(binding.rvTvShow) {
+                    layoutManager = LinearLayoutManager(context)
+                    this.adapter = adapter
+                    setHasFixedSize(true)
+                }
+                loadingState(false)
+            })
+
+        }
+    }
+
+    private fun loadingState(loading: Boolean) {
+        if (loading) {
+            with(binding) {
+                progressBar.visibility = View.VISIBLE
+            }
+        } else {
+            with(binding) {
+                progressBar.visibility = View.GONE
             }
         }
     }
