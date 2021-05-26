@@ -3,7 +3,7 @@ package com.augie.moviecatalogue.ui.detail
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.augie.moviecatalogue.data.MovieEntity
+import com.augie.moviecatalogue.data.source.local.entity.MovieEntity
 import com.augie.moviecatalogue.data.MovieRepository
 import com.augie.moviecatalogue.utils.DataDummy
 import org.junit.Assert.assertEquals

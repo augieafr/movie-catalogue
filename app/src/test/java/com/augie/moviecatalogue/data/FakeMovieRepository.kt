@@ -1,8 +1,8 @@
 package com.augie.moviecatalogue.data
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.augie.moviecatalogue.data.source.local.entity.MovieEntity
 import com.augie.moviecatalogue.data.source.remote.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO

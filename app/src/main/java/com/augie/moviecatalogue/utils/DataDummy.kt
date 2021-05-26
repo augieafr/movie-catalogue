@@ -1,6 +1,6 @@
 package com.augie.moviecatalogue.utils
 
-import com.augie.moviecatalogue.data.MovieEntity
+import com.augie.moviecatalogue.data.source.local.entity.MovieEntity
 import com.augie.moviecatalogue.data.source.remote.*
 
 object DataDummy {
@@ -301,7 +301,7 @@ object DataDummy {
         return tvShows
     }
 
-    fun generateDummyMovie(): ArrayList<MovieEntity> {
+    fun generateDummyMovie(): List<MovieEntity> {
         val movies = ArrayList<MovieEntity>()
 
         movies.add(

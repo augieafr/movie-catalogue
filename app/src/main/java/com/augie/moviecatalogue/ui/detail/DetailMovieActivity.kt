@@ -6,18 +6,28 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.augie.moviecatalogue.R
-import com.augie.moviecatalogue.data.MovieEntity
+import com.augie.moviecatalogue.data.source.local.entity.MovieEntity
+import com.augie.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.augie.moviecatalogue.databinding.ActivityDetailMovieBinding
 import com.augie.moviecatalogue.viewmodel.ViewModelFactory
+import com.augie.moviecatalogue.vo.Resource
+import com.augie.moviecatalogue.vo.Status
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
 class DetailMovieActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var binding: ActivityDetailMovieBinding
-    private lateinit var movie: MovieEntity
+    private lateinit var viewModel: DetailMovieViewModel
+    private lateinit var movieTitle: String
+    private lateinit var movieOverview: String
+    private lateinit var type: String
+
+    private var id: Int = 0
+    private var isFav: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,20 +39,22 @@ class DetailMovieActivity : AppCompatActivity(), View.OnClickListener {
         loadingState(true)
 
         val id = intent.getIntExtra(EXTRA_ID, 0)
-        val type = intent.getStringExtra(EXTRA_TYPE)
+        type = intent.getStringExtra(EXTRA_TYPE).toString()
 
-        val factory = ViewModelFactory.getInstance()
-        val viewModel = ViewModelProvider(
+        val factory = ViewModelFactory.getInstance(this)
+        viewModel = ViewModelProvider(
             this,
             factory
         )[DetailMovieViewModel::class.java]
 
-        if (type != null) {
-            viewModel.getMovie(type, id).observe(this, { detail ->
-                populateView(detail)
-                movie = detail
-                loadingState(false)
-            })
+        when (type) {
+            MOVIE -> {
+                viewModel.getMovie(id).observe(this, movieObserver)
+            }
+
+            TV_SHOW -> {
+                viewModel.getTvShow(id).observe(this, tvShowObserver)
+            }
         }
     }
 
@@ -56,15 +68,15 @@ class DetailMovieActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.civ_favorite -> {
-                with(binding.civFavorite) {
-                    setImageResource(R.drawable.ic_baseline_favorite_24)
-                    tag = R.drawable.ic_baseline_favorite_24
+                if (!isFav){
+                    // update to favorite
+                    viewModel.setFavorite(id, true, type)
+                    favoriteState(true)
+                } else {
+                    // update to not favorite
+                    viewModel.setFavorite(id, false, type)
+                    favoriteState(false)
                 }
-                Toast.makeText(
-                    this,
-                    "Will be fully implemented in submission 3",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
 
             R.id.civ_share -> {
@@ -73,8 +85,50 @@ class DetailMovieActivity : AppCompatActivity(), View.OnClickListener {
                     .from(this)
                     .setType(mimeType)
                     .setChooserTitle("Share this film now")
-                    .setText(resources.getString(R.string.share_text, movie.title, movie.overview))
+                    .setText(resources.getString(R.string.share_text, movieTitle, movieOverview))
                     .startChooser()
+            }
+        }
+    }
+
+    private val movieObserver = Observer<Resource<MovieEntity>> { detailMovie ->
+        if (detailMovie != null) {
+            when (detailMovie.status) {
+                Status.LOADING -> loadingState(true)
+                Status.ERROR -> {
+
+                }
+                Status.SUCCESS -> {
+                    if (detailMovie.data != null) {
+                        populateView(detailMovie.data)
+                        movieTitle = detailMovie.data.title
+                        movieOverview = detailMovie.data.overview
+                        isFav = detailMovie.data.isFav
+                        id = detailMovie.data.id
+                    }
+                    loadingState(false)
+                }
+            }
+        }
+    }
+
+    private val tvShowObserver = Observer<Resource<TvShowEntity>> { detailTvShow ->
+        if (detailTvShow != null) {
+            when (detailTvShow.status) {
+                Status.LOADING -> loadingState(true)
+                Status.ERROR -> {
+
+                }
+                Status.SUCCESS -> {
+                    if (detailTvShow.data != null) {
+                        populateView(detailTvShow.data)
+                        movieTitle = detailTvShow.data.title
+                        movieOverview = detailTvShow.data.overview
+                        isFav = detailTvShow.data.isFav
+                        id = detailTvShow.data.id
+                    }
+                    loadingState(false)
+                }
             }
         }
     }
@@ -104,7 +158,12 @@ class DetailMovieActivity : AppCompatActivity(), View.OnClickListener {
 
             // tag for instrumental testing purpose
             imgDetailPoster.tag = movie.poster
-            civFavorite.tag = R.drawable.ic_baseline_favorite_border_24
+            if (!movie.isFav) {
+                civFavorite.tag = R.drawable.ic_baseline_favorite_border_24
+            } else {
+                civFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                civFavorite.tag = R.drawable.ic_baseline_favorite_24
+            }
 
             civFavorite.setOnClickListener(this@DetailMovieActivity)
             civShare.setOnClickListener(this@DetailMovieActivity)
@@ -127,6 +186,68 @@ class DetailMovieActivity : AppCompatActivity(), View.OnClickListener {
             .into(binding.imgDetailBackdrop)
     }
 
+    private fun populateView(tvShow: TvShowEntity) {
+
+        with(binding) {
+            tvDetailTitle.text =
+                getString(R.string.movie_detail_title, tvShow.title, tvShow.releaseDate)
+            tvDetailGenre.text = tvShow.genre
+            tvDetailOverview.text = tvShow.overview
+            tvDetailDuration.text = tvShow.duration
+
+            // tag for instrumental testing purpose
+            imgDetailPoster.tag = tvShow.poster
+            if (!tvShow.isFav) {
+                civFavorite.tag = R.drawable.ic_baseline_favorite_border_24
+            } else {
+                civFavorite.setImageResource(R.drawable.ic_baseline_favorite_24)
+                civFavorite.tag = R.drawable.ic_baseline_favorite_24
+            }
+
+            civFavorite.setOnClickListener(this@DetailMovieActivity)
+            civShare.setOnClickListener(this@DetailMovieActivity)
+        }
+
+        Glide.with(this)
+            .load("https://image.tmdb.org/t/p/original${tvShow.poster}")
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading)
+                    .error(R.drawable.ic_error)
+            )
+            .into(binding.imgDetailPoster)
+
+        Glide.with(this)
+            .load("https://image.tmdb.org/t/p/original${tvShow.backdrop}")
+            .apply(
+                RequestOptions.placeholderOf(R.drawable.ic_loading)
+                    .error(R.drawable.ic_error)
+            )
+            .into(binding.imgDetailBackdrop)
+    }
+
+    private fun favoriteState(state: Boolean){
+        if (state){
+            with(binding.civFavorite) {
+                setImageResource(R.drawable.ic_baseline_favorite_24)
+                tag = R.drawable.ic_baseline_favorite_24
+            }
+            Toast.makeText(
+                this,
+                "Added to favorite",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else {
+            with(binding.civFavorite) {
+                setImageResource(R.drawable.ic_baseline_favorite_border_24)
+                tag = R.drawable.ic_baseline_favorite_border_24
+            }
+            Toast.makeText(
+                this,
+                "Removed from favorite",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
     companion object {
         const val EXTRA_ID = "extra_id"
         const val EXTRA_TYPE = "extra_type"

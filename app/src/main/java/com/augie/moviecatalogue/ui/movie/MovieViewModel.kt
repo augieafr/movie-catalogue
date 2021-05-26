@@ -1,14 +1,12 @@
 package com.augie.moviecatalogue.ui.movie
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.augie.moviecatalogue.data.MovieEntity
+import androidx.paging.PagedList
+import com.augie.moviecatalogue.data.source.local.entity.MovieEntity
 import com.augie.moviecatalogue.data.MovieRepository
-import com.augie.moviecatalogue.utils.DataDummy
-import kotlinx.coroutines.launch
+import com.augie.moviecatalogue.vo.Resource
 
 class MovieViewModel(private val repository: MovieRepository) : ViewModel() {
-    fun getMovie(): LiveData<List<MovieEntity>> = repository.getMovies()
+    fun getMovie(): LiveData<Resource<PagedList<MovieEntity>>> = repository.getMovies()
 }
