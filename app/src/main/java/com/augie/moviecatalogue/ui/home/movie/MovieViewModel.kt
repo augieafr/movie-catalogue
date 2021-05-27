@@ -1,4 +1,4 @@
-package com.augie.moviecatalogue.ui.movie
+package com.augie.moviecatalogue.ui.home.movie
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel

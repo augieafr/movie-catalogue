@@ -1,11 +1,12 @@
-package com.augie.moviecatalogue.ui.movie
+package com.augie.moviecatalogue.ui.home.movie
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import com.augie.moviecatalogue.data.source.local.entity.MovieEntity
+import androidx.paging.PagedList
 import com.augie.moviecatalogue.data.MovieRepository
-import com.augie.moviecatalogue.utils.DataDummy
+import com.augie.moviecatalogue.data.source.local.entity.MovieEntity
+import com.augie.moviecatalogue.vo.Resource
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -21,7 +22,6 @@ import org.mockito.junit.MockitoJUnitRunner
 class MovieViewModelTest {
 
     private lateinit var viewModel: MovieViewModel
-    private val dataSize = DataDummy.generateDummyMovie().size
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -30,7 +30,10 @@ class MovieViewModelTest {
     private lateinit var movieRepository: MovieRepository
 
     @Mock
-    private lateinit var  movieObserver: Observer<List<MovieEntity>>
+    private lateinit var movieObserver: Observer<Resource<PagedList<MovieEntity>>>
+
+    @Mock
+    private lateinit var pagedList: PagedList<MovieEntity>
 
     @Before
     fun setUp() {
@@ -39,16 +42,17 @@ class MovieViewModelTest {
 
     @Test
     fun testGetMovie() {
-        val dummyMovies = DataDummy.generateDummyMovie()
-        val movies = MutableLiveData<List<MovieEntity>>()
+        val dummyMovies = Resource.success(pagedList)
+        `when`(dummyMovies.data?.size).thenReturn(5)
+        val movies = MutableLiveData<Resource<PagedList<MovieEntity>>>()
         movies.value = dummyMovies
 
         `when`(movieRepository.getMovies()).thenReturn(movies)
-        val movieEntities = viewModel.getMovie().value as List<MovieEntity>
+        val movieEntities = viewModel.getMovie().value?.data
         verify(movieRepository).getMovies()
 
         assertNotNull(movieEntities)
-        assertEquals(dataSize, movieEntities.size)
+        assertEquals(5, movieEntities?.size)
 
         viewModel.getMovie().observeForever(movieObserver)
         verify(movieObserver).onChanged(dummyMovies)

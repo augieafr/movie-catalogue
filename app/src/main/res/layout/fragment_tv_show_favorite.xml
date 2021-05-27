@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.home.tvshow.TvShowFragment">
+    tools:context=".ui.favorite.tvshow.TvShowFavoriteFragment">
 
     <ProgressBar
         android:id="@+id/progress_bar"
@@ -14,11 +14,18 @@
         android:layout_height="wrap_content"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/tv_no_tv_show_favorite"
+        style="@style/TextAppearance.MdcTypographyStyles.Headline6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/empty_favorite_movie" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_tv_show"
+        android:id="@+id/rv_favorite_tv_show"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/movie_items" />
-
 
 </LinearLayout>

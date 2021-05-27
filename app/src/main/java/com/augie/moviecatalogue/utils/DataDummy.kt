@@ -1,6 +1,7 @@
 package com.augie.moviecatalogue.utils
 
 import com.augie.moviecatalogue.data.source.local.entity.MovieEntity
+import com.augie.moviecatalogue.data.source.local.entity.TvShowEntity
 import com.augie.moviecatalogue.data.source.remote.*
 
 object DataDummy {
@@ -16,7 +17,7 @@ object DataDummy {
             listOf(GenresItem("", 1)),
             1.0,
             listOf(ProductionCountriesItem("", "")),
-            1,
+            0,
             1,
             1,
             "",
@@ -62,7 +63,7 @@ object DataDummy {
             listOf(GenresItem("action", 1)),
             1.0,
             listOf(ProductionCountriesItem("iso", "dunno")),
-            1,
+            0,
             1,
             1,
             "this is overview",
@@ -98,7 +99,7 @@ object DataDummy {
                     8.0,
                     8.0,
                     "Dummy TvShow 1",
-                    1,
+                    0,
                     100
                 ),
 
@@ -114,7 +115,7 @@ object DataDummy {
                     8.0,
                     8.0,
                     "Dummy TvShow 2",
-                    2,
+                    1,
                     200
                 )
             ),
@@ -140,7 +141,7 @@ object DataDummy {
                     "2021-01-01",
                     8.0,
                     8.0,
-                    1,
+                    0,
                     false,
                     100
                 ),
@@ -156,7 +157,7 @@ object DataDummy {
                     "2021-02-02",
                     8.0,
                     8.0,
-                    2,
+                    1,
                     false,
                     200
                 )
@@ -165,11 +166,11 @@ object DataDummy {
         )
     }
 
-    fun generateDummyTvShow(): ArrayList<MovieEntity> {
-        val tvShows = ArrayList<MovieEntity>()
+    fun generateDummyTvShow(): ArrayList<TvShowEntity> {
+        val tvShows = ArrayList<TvShowEntity>()
 
         tvShows.add(
-            MovieEntity(
+            TvShowEntity(
                 0,
                 "Arrow",
                 "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
@@ -182,7 +183,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            MovieEntity(
+            TvShowEntity(
                 1,
                 "Doom Patrol",
                 "The Doom Patrol’s members each suffered horrible accidents that gave them superhuman abilities — but also left them scarred and disfigured. Traumatized and downtrodden, the team found purpose through The Chief, who brought them together to investigate the weirdest phenomena in existence — and to protect Earth from what they find.",
@@ -195,7 +196,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            MovieEntity(
+            TvShowEntity(
                 2,
                 "Dragon Ball",
                 "Long ago in the mountains, a fighting master known as Gohan discovered a strange boy whom he named Goku. Gohan raised him and trained Goku in martial arts until he died. The young and very strong boy was on his own, but easily managed. Then one day, Goku met a teenage girl named Bulma, whose search for the mystical Dragon Balls brought her to Goku's home. Together, they set off to find all seven and to grant her wish.",
@@ -208,7 +209,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            MovieEntity(
+            TvShowEntity(
                 3,
                 "Fairy Tail",
                 "Lucy is a 17-year-old girl, who wants to be a full-fledged mage. One day when visiting Harujion Town, she meets Natsu, a young man who gets sick easily by any type of transportation. But Natsu isn't just any ordinary kid, he's a member of one of the world's most infamous mage guilds: Fairy Tail.",
@@ -221,7 +222,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            MovieEntity(
+            TvShowEntity(
                 4,
                 "Family Guy",
                 "Sick, twisted, politically incorrect and Freakin' Sweet animated series featuring the adventures of the dysfunctional Griffin family. Bumbling Peter and long-suffering Lois have three kids. Stewie (a brilliant but sadistic baby bent on killing his mother and taking over the world), Meg (the oldest, and is the most unpopular girl in town) and Chris (the middle kid, he's not very bright but has a passion for movies). The final member of the family is Brian - a talking dog and much more than a pet, he keeps Stewie in check whilst sipping Martinis and sorting through his own life issues.",
@@ -234,7 +235,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            MovieEntity(
+            TvShowEntity(
                 5,
                 "Flash",
                 "After a particle accelerator causes a freak storm, CSI Investigator Barry Allen is struck by lightning and falls into a coma. Months later he awakens with the power of super speed, granting him the ability to move through Central City like an unseen guardian angel. Though initially excited by his newfound powers, Barry is shocked to discover he is not the only \"meta-human\" who was created in the wake of the accelerator explosion -- and not everyone is using their new powers for good. Barry partners with S.T.A.R. Labs and dedicates his life to protect the innocent. For now, only a few close friends and associates know that Barry is literally the fastest man alive, but it won't be long before the world learns what Barry Allen has become...The Flash.",
@@ -247,7 +248,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            MovieEntity(
+            TvShowEntity(
                 6,
                 "Game of Thrones",
                 "Seven noble families fight for control of the mythical land of Westeros. Friction between the houses leads to full-scale war. All while a very ancient evil awakens in the farthest north. Amidst the war, a neglected military order of misfits, the Night's Watch, is all that stands between the realms of men and icy horrors beyond.",
@@ -260,7 +261,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            MovieEntity(
+            TvShowEntity(
                 7,
                 "Gotham",
                 "Everyone knows the name Commissioner Gordon. He is one of the crime world's greatest foes, a man whose reputation is synonymous with law and order. But what is known of Gordon's story and his rise from rookie detective to Police Commissioner? What did it take to navigate the multiple layers of corruption that secretly ruled Gotham City, the spawning ground of the world's most iconic villains? And what circumstances created them – the larger-than-life personas who would become Catwoman, The Penguin, The Riddler, Two-Face and The Joker?",
@@ -273,7 +274,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            MovieEntity(
+            TvShowEntity(
                 8,
                 "Grey's Anatomy",
                 "Follows the personal and professional lives of a group of doctors at Seattle’s Grey Sloan Memorial Hospital.",
@@ -286,7 +287,7 @@ object DataDummy {
         )
 
         tvShows.add(
-            MovieEntity(
+            TvShowEntity(
                 9,
                 "Hanna",
                 "This thriller and coming-of-age drama follows the journey of an extraordinary young girl as she evades the relentless pursuit of an off-book CIA agent and tries to unearth the truth behind who she is. Based on the 2011 Joe Wright film.",

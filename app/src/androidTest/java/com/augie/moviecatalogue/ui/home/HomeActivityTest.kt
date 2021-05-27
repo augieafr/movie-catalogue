@@ -5,6 +5,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.pressBack
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -77,13 +78,14 @@ class HomeActivityTest {
         onView(withId(R.id.civ_share)).check(matches(isDisplayed()))
 
         // favorite icon, also check image changes when clicked
+        // careful this test could fail if the movie already in favorite before the test
         onView(withId(R.id.civ_favorite)).check(matches(isDisplayed()))
         onView(withId(R.id.civ_favorite)).check(matches(withTagValue(equalTo(R.drawable.ic_baseline_favorite_border_24))))
         onView(withId(R.id.civ_favorite)).perform(click())
         onView(withId(R.id.civ_favorite)).check(matches(withTagValue(equalTo(R.drawable.ic_baseline_favorite_24))))
+        onView(withId(R.id.civ_favorite)).perform(click())
     }
 
-    // need to test tv show detail too because it has difference data even though has same UI and entity
     @Test
     fun loadDetailTvShow() {
         onView(withText("TV Shows")).perform(click())
@@ -108,9 +110,76 @@ class HomeActivityTest {
         onView(withId(R.id.civ_share)).check(matches(isDisplayed()))
 
         // favorite icon, also check image changes when clicked
+        // careful this test could fail if the movie already in favorite before the test
         onView(withId(R.id.civ_favorite)).check(matches(isDisplayed()))
         onView(withId(R.id.civ_favorite)).check(matches(withTagValue(equalTo(R.drawable.ic_baseline_favorite_border_24))))
         onView(withId(R.id.civ_favorite)).perform(click())
         onView(withId(R.id.civ_favorite)).check(matches(withTagValue(equalTo(R.drawable.ic_baseline_favorite_24))))
+        onView(withId(R.id.civ_favorite)).perform(click())
+    }
+
+    @Test
+    fun loadFavoriteMovieNotEmpty() {
+        // favorite the first item from favorite
+        onView(withId(R.id.rv_movie)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0, click()
+            )
+        )
+        onView(withId(R.id.civ_favorite)).perform(click())
+        // back to home activity
+        onView(isRoot()).perform(pressBack())
+
+        // go to favorite activity
+        onView(withId(R.id.menu_favorite)).perform(click())
+        onView(withId(R.id.rv_favorite_movie)).check(matches(isDisplayed()))
+
+        // change favorite state to default again
+        onView(withId(R.id.rv_favorite_movie)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0, click()
+            )
+        )
+        onView(withId(R.id.civ_favorite)).perform(click())
+    }
+
+    @Test
+    fun loadFavoriteMovieEmpty() {
+        onView(withId(R.id.menu_favorite)).perform(click())
+        onView(withId(R.id.tv_no_movie_favorite)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun loadFavoriteTvShowNotEmpty() {
+        // favorite the first item from favorite
+        onView(withText("TV Shows")).perform(click())
+        onView(withId(R.id.rv_tv_show)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0, click()
+            )
+        )
+        onView(withId(R.id.civ_favorite)).perform(click())
+        // back to home activity
+        onView(isRoot()).perform(pressBack())
+
+        // go to favorite activity
+        onView(withId(R.id.menu_favorite)).perform(click())
+        onView(withText("TV Shows")).perform(click())
+        onView(withId(R.id.rv_favorite_tv_show)).check(matches(isDisplayed()))
+
+        // change favorite state to default again
+        onView(withId(R.id.rv_favorite_tv_show)).perform(
+            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
+                0, click()
+            )
+        )
+        onView(withId(R.id.civ_favorite)).perform(click())
+    }
+
+    @Test
+    fun loadFavoriteTvShowEmpty() {
+        onView(withId(R.id.menu_favorite)).perform(click())
+        onView(withText("TV Shows")).perform(click())
+        onView(withId(R.id.tv_no_tv_show_favorite)).check(matches(isDisplayed()))
     }
 }

@@ -6,8 +6,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.augie.moviecatalogue.data.MovieRepository
 import com.augie.moviecatalogue.injection.Injection
 import com.augie.moviecatalogue.ui.detail.DetailMovieViewModel
-import com.augie.moviecatalogue.ui.movie.MovieViewModel
-import com.augie.moviecatalogue.ui.tvshow.TvShowViewModel
+import com.augie.moviecatalogue.ui.favorite.movie.MovieFavoriteViewModel
+import com.augie.moviecatalogue.ui.favorite.tvshow.TvShowFavoriteViewModel
+import com.augie.moviecatalogue.ui.home.movie.MovieViewModel
+import com.augie.moviecatalogue.ui.home.tvshow.TvShowViewModel
 
 class ViewModelFactory private constructor(private val mMovieRepository: MovieRepository) :
     ViewModelProvider.NewInstanceFactory() {
@@ -25,6 +27,14 @@ class ViewModelFactory private constructor(private val mMovieRepository: MovieRe
 
             modelClass.isAssignableFrom(TvShowViewModel::class.java) -> {
                 return TvShowViewModel(mMovieRepository) as T
+            }
+
+            modelClass.isAssignableFrom(MovieFavoriteViewModel::class.java) -> {
+                return MovieFavoriteViewModel(mMovieRepository) as T
+            }
+
+            modelClass.isAssignableFrom(TvShowFavoriteViewModel::class.java) -> {
+                return TvShowFavoriteViewModel(mMovieRepository) as T
             }
 
             else -> throw Throwable("Unknown ViewModel class: " + modelClass.name)
