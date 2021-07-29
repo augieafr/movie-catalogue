@@ -27,11 +27,11 @@ data class MovieEntity(
     @ColumnInfo(name = "duration")
     var duration: String,
 
-    @ColumnInfo(name = "poster")
-    var poster: String,
+    @ColumnInfo(name = "poster", defaultValue = "")
+    var poster: String?,
 
-    @ColumnInfo(name = "backdrop")
-    var backdrop: String,
+    @ColumnInfo(name = "backdrop", defaultValue = "")
+    var backdrop: String?,
 
     @ColumnInfo(name = "favorite")
     var isFav: Boolean = false
