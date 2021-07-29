@@ -1,7 +1,6 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'kotlin-android'
-    id 'kotlin-parcelize'
     id 'kotlin-kapt'
 }
 
@@ -11,14 +10,13 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.augie.moviecatalogue"
         minSdkVersion 21
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "API_TOKEN", '"b718c3f2440effcac9d17c3ea9d34e34"')
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -41,4 +39,12 @@ android {
 
 dependencies {
 
+    //remote
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okHttp3Version"
+
+    //local room
+    implementation "androidx.room:room-runtime:2.3.0"
+    kapt "androidx.room:room-compiler:2.3.0"
 }
