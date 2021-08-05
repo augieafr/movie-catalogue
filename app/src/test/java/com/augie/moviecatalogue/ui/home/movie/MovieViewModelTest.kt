@@ -4,9 +4,9 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
-import com.augie.moviecatalogue.data.MovieRepository
-import com.augie.moviecatalogue.data.source.local.entity.MovieEntity
-import com.augie.moviecatalogue.vo.Resource
+import com.augie.moviecatalogue.core.data.source.local.entity.MovieEntity
+import com.augie.moviecatalogue.core.data.Resource
+import com.augie.moviecatalogue.home.movie.MovieViewModel
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Before
@@ -27,13 +27,13 @@ class MovieViewModelTest {
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
     @Mock
-    private lateinit var movieRepository: MovieRepository
+    private lateinit var movieRepository: com.augie.moviecatalogue.core.data.MovieRepository
 
     @Mock
     private lateinit var movieObserver: Observer<Resource<PagedList<MovieEntity>>>
 
     @Mock
-    private lateinit var pagedList: PagedList<MovieEntity>
+    private lateinit var pagedList: PagedList<com.augie.moviecatalogue.core.data.source.local.entity.MovieEntity>
 
     @Before
     fun setUp() {

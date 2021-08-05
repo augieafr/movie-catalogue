@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.home.tvshow.TvShowFragment">
+    tools:context=".home.tvshow.TvShowFragment">
 
     <ProgressBar
         android:id="@+id/progress_bar"

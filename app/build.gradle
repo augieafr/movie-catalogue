@@ -36,9 +36,10 @@ android {
     buildFeatures {
         viewBinding true
     }
+    dynamicFeatures = [':favorite']
 }
 
 dependencies {
-
     implementation project(":core")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

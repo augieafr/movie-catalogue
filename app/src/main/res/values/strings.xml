@@ -1,12 +1,8 @@
 <resources>
     <string name="app_name">Movie Catalogue</string>
-    <string name="movie_poster">Movie Poster</string>
     <string name="movie_detail_title">%s (%s)</string>
-    <string name="overview">Overview</string>
     <string name="lorem_ipsum">"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi consequat faucibus elit eget euismod. Aliquam consectetur, lorem a ullamcorper consequat, arcu ex pharetra dui, consequat sodales elit libero eget lectus. Sed mi felis, egestas vitae imperdiet a, volutpat vitae quam. Donec pellentesque, tortor in imperdiet imperdiet, ex dui cursus lacus, sit amet mollis ex ligula ut arcu. Etiam pulvinar nunc eu eros tincidunt, id pellentesque mi mollis. Cras enim eros, finibus non nunc id, dictum rutrum enim. Fusce lacus tortor, tempus a lacus non, convallis aliquet odio. Fusce cursus erat a dolor eleifend accumsan. Aenean ut mi vel purus eleifend feugiat. Quisque ut consequat ligula. Aenean sodales velit finibus volutpat efficitur. Nulla eget rhoncus nunc. Phasellus ornare aliquet magna nec venenatis."</string>
-    <string name="share_text">%s Overview \n\n%s</string>
-    <string name="movie_backdrop">Movie Backdrop</string>
     <string name="my_favorite">My Favorite</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="empty_favorite_movie">You don\'t have favorite movies</string>
+    <string name="share_text">%s Overview \n\n%s</string>
+    <string name="overview">Overview</string>
 </resources>

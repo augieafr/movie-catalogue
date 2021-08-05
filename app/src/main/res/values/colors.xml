@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="light_grey">#6d6d6d</color>
-    <color name="primary_grey">#424242</color>
-    <color name="dark_grey">#1b1b1b</color>
-    <color name="blue_gray_200">#b0bec5</color>
-    <color name="blue_gray_700">#455a64</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="placeholder">#6FB6B6B6</color>
+
 </resources>

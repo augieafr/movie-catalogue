@@ -11,7 +11,8 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.augie.moviecatalogue.R
-import com.augie.moviecatalogue.utils.EspressoIdlingResources
+import com.augie.moviecatalogue.core.utils.EspressoIdlingResources
+import com.augie.moviecatalogue.home.HomeActivity
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.After
 import org.junit.Before

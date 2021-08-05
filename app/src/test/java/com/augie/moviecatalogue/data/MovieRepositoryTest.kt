@@ -3,15 +3,11 @@ package com.augie.moviecatalogue.data
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
-import com.augie.moviecatalogue.data.source.local.LocalDataSource
-import com.augie.moviecatalogue.data.source.local.entity.MovieEntity
-import com.augie.moviecatalogue.data.source.local.entity.TvShowEntity
-import com.augie.moviecatalogue.data.source.remote.RemoteDataSource
-import com.augie.moviecatalogue.utils.AppExecutors
-import com.augie.moviecatalogue.utils.DataDummy
-import com.augie.moviecatalogue.utils.LiveDataTestUtils
+import com.augie.moviecatalogue.core.utils.AppExecutors
+import com.augie.moviecatalogue.core.utils.DataDummy
+import com.augie.moviecatalogue.core.utils.LiveDataTestUtils
 import com.augie.moviecatalogue.utils.PagedListUtil
-import com.augie.moviecatalogue.vo.Resource
+import com.augie.moviecatalogue.core.data.Resource
 import com.nhaarman.mockitokotlin2.verify
 import com.nhaarman.mockitokotlin2.verifyNoMoreInteractions
 import org.junit.Assert.assertEquals
@@ -23,10 +19,10 @@ import org.mockito.Mockito.mock
 
 class MovieRepositoryTest {
 
-    private val remote = mock(RemoteDataSource::class.java)
-    private val local = mock(LocalDataSource::class.java)
+    private val remote = mock(com.augie.moviecatalogue.core.data.source.remote.RemoteDataSource::class.java)
+    private val local = mock(com.augie.moviecatalogue.core.data.source.local.LocalDataSource::class.java)
     private val appExecutors = mock(AppExecutors::class.java)
-    private val movieRepository = FakeMovieRepository(remote, local, appExecutors)
+    private val movieRepository = FakeIMovieRepository(remote, local, appExecutors)
 
     private val dummyMovie = DataDummy.generateDummyMovie()
     private val dummyTvShow = DataDummy.generateDummyTvShow()
@@ -43,7 +39,7 @@ class MovieRepositoryTest {
     @Test
     fun testGetMovies() {
         val dataSourceFactory =
-            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
+            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, com.augie.moviecatalogue.core.data.source.local.entity.MovieEntity>
         `when`(local.getMovie()).thenReturn(dataSourceFactory)
         movieRepository.getMovies()
 
@@ -57,7 +53,7 @@ class MovieRepositoryTest {
     @Test
     fun testGetTvShows() {
         val dataSourceFactory =
-            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
+            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, com.augie.moviecatalogue.core.data.source.local.entity.TvShowEntity>
         `when`(local.getTvShow()).thenReturn(dataSourceFactory)
         movieRepository.getTvShows()
 
@@ -70,7 +66,7 @@ class MovieRepositoryTest {
 
     @Test
     fun testGetDetailMovies() {
-        val dummyDetail = MutableLiveData<MovieEntity>()
+        val dummyDetail = MutableLiveData<com.augie.moviecatalogue.core.data.source.local.entity.MovieEntity>()
         dummyDetail.value = detailMovie
         `when`(local.getMovieById(movieId)).thenReturn(dummyDetail)
 
@@ -82,7 +78,7 @@ class MovieRepositoryTest {
 
     @Test
     fun testGetDetailTvShow() {
-        val dummyDetail = MutableLiveData<TvShowEntity>()
+        val dummyDetail = MutableLiveData<com.augie.moviecatalogue.core.data.source.local.entity.TvShowEntity>()
         dummyDetail.value = detailTvShow
         `when`(local.getTvShowById(tvShowId)).thenReturn(dummyDetail)
 
@@ -96,7 +92,7 @@ class MovieRepositoryTest {
     @Test
     fun testGetFavoriteMovies() {
         val dataSourceFactory =
-            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, MovieEntity>
+            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, com.augie.moviecatalogue.core.data.source.local.entity.MovieEntity>
         `when`(local.getMovieFavorite()).thenReturn(dataSourceFactory)
         movieRepository.getFavoriteMovies()
 
@@ -109,7 +105,7 @@ class MovieRepositoryTest {
     @Test
     fun testGetFavoriteTvShows() {
         val dataSourceFactory =
-            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, TvShowEntity>
+            mock(DataSource.Factory::class.java) as DataSource.Factory<Int, com.augie.moviecatalogue.core.data.source.local.entity.TvShowEntity>
         `when`(local.getTvShowFavorite()).thenReturn(dataSourceFactory)
         movieRepository.getFavoriteTvShows()
 
