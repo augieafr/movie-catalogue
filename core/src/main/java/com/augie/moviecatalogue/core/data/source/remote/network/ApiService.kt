@@ -1,10 +1,10 @@
 package com.augie.moviecatalogue.core.data.source.remote.network
+
 import com.augie.moviecatalogue.core.BuildConfig
 import com.augie.moviecatalogue.core.data.source.remote.response.DetailMovieResponse
 import com.augie.moviecatalogue.core.data.source.remote.response.DetailTvShowResponse
 import com.augie.moviecatalogue.core.data.source.remote.response.MovieResponse
 import com.augie.moviecatalogue.core.data.source.remote.response.TvResponse
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
