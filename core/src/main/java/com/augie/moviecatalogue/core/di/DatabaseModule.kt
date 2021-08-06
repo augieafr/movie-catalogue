@@ -8,6 +8,8 @@ import com.augie.moviecatalogue.core.data.source.remote.RemoteDataSource
 import com.augie.moviecatalogue.core.data.source.remote.network.ApiService
 import com.augie.moviecatalogue.core.domain.repository.IMovieRepository
 import com.augie.moviecatalogue.core.utils.AppExecutors
+import net.sqlcipher.database.SQLiteDatabase
+import net.sqlcipher.database.SupportFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -18,11 +20,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 val databaseModule = module {
     factory { get<MovieCatalogueDatabase>().movieDao() }
     single {
+        val passphrase: ByteArray = SQLiteDatabase.getBytes("sql_password".toCharArray())
+        val factory = SupportFactory(passphrase)
         Room.databaseBuilder(
             androidContext(),
             MovieCatalogueDatabase::class.java,
             "MovieCatalogue.db"
-        ).build()
+        ).openHelperFactory(factory).build()
     }
 }
 

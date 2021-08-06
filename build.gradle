@@ -50,4 +50,7 @@ ext {
     lifecycleVersion = "2.2.0"
 
     koin_version = "2.1.6"
+
+    sqliteVersion = "2.1.0"
+    sqlCipherVersion = "4.4.0"
 }
