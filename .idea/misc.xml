@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Work/Doc/Bangkit/AndroidJetpack/MovieCatalogue/app/src/main/res/layout/fragment_movie.xml" value="0.1" />
+        <entry key="..\:/Work/Doc/Bangkit/AndroidJetpack/MovieCatalogue/app/src/main/res/layout/fragment_tv_show.xml" value="0.1" />
         <entry key="..\:/Work/Doc/Bangkit/AndroidJetpack/MovieCatalogue/core/src/main/res/drawable/ic_broken_image_24.xml" value="0.11614583333333334" />
         <entry key="..\:/Work/Doc/Bangkit/AndroidJetpack/MovieCatalogue/core/src/main/res/drawable/ic_error.xml" value="0.11614583333333334" />
         <entry key="..\:/Work/Doc/Bangkit/AndroidJetpack/MovieCatalogue/core/src/main/res/drawable/ic_loading.xml" value="0.175" />
         <entry key="..\:/Work/Doc/Bangkit/AndroidJetpack/MovieCatalogue/core/src/main/res/drawable/ic_refresh_24.xml" value="0.175" />
+        <entry key="..\:/Work/Doc/Bangkit/AndroidJetpack/MovieCatalogue/core/src/main/res/layout/movie_items.xml" value="0.1" />
+        <entry key="..\:/Work/Doc/Bangkit/AndroidJetpack/MovieCatalogue/core/src/main/res/layout/movie_items_placeholder.xml" value="0.33" />
       </map>
     </option>
   </component>

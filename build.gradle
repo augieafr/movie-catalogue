@@ -53,4 +53,6 @@ ext {
 
     sqliteVersion = "2.1.0"
     sqlCipherVersion = "4.4.0"
+
+    shimmerVersion = "0.5.0"
 }

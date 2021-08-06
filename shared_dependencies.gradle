@@ -14,6 +14,8 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:$viewPager2Version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    // shimmer
+    implementation "com.facebook.shimmer:shimmer:$shimmerVersion"
 
     // testing
     testImplementation "junit:junit:$junitVersion"
