@@ -14,6 +14,11 @@ class MovieAdapter : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
     var onItemClick: ((Movie) -> Unit)? = null
     private var listMovie = ArrayList<Movie>()
 
+    // semenjak update android studio artic fox, terdapat warning performance 
+    // saat inspect code mengenai notifyDataSetChanged(). 
+    // tetapi saya tetap menggunakan notifyDataSetChanged() karena adapter ini
+    // hanya menagani load semua data dari database, tidak menangani event add atau delete item tertentu.
+    // ref: https://stackoverflow.com/questions/68602157/it-will-always-be-more-efficient-to-use-more-specific-change-events-if-you-can
     fun setData(data: List<Movie>?) {
         if (data == null) return
         listMovie.clear()

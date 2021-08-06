@@ -13,6 +13,11 @@ class TvShowAdapter : RecyclerView.Adapter<TvShowAdapter.TvShowViewHolder>() {
     var onItemClick: ((TvShow) -> Unit)? = null
     private var listTvShow = ArrayList<TvShow>()
 
+    // semenjak update android studio artic fox, terdapat warning performance
+    // saat inspect code mengenai notifyDataSetChanged().
+    // tetapi saya tetap menggunakan notifyDataSetChanged() karena adapter ini
+    // hanya menagani load semua data dari database, tidak menangani event add atau delete item tertentu.
+    // ref: https://stackoverflow.com/questions/68602157/it-will-always-be-more-efficient-to-use-more-specific-change-events-if-you-can
     fun setData(data: List<TvShow>?) {
         if (data == null) return
         listTvShow.clear()
