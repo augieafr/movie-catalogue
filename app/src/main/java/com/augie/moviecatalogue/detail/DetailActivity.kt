@@ -227,7 +227,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
                 tag = R.drawable.ic_baseline_favorite_24
             }
             Toast.makeText(
-                this,
+                applicationContext,
                 "Added to favorite",
                 Toast.LENGTH_SHORT
             ).show()
@@ -237,7 +237,7 @@ class DetailActivity : AppCompatActivity(), View.OnClickListener {
                 tag = R.drawable.ic_baseline_favorite_border_24
             }
             Toast.makeText(
-                this,
+                applicationContext,
                 "Removed from favorite",
                 Toast.LENGTH_SHORT
             ).show()
